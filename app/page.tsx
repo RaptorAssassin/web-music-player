@@ -1,10 +1,10 @@
-import Button from "@/components/button";
+import Button from '@/components/button'
+import { MusicPlayer } from '@/components/music-player'
 
 export default function Home() {
   return (
-    <main>
-      <Button text="Click me!" />
-      <Button text="I'm another button!" />
+    <main className="flex h-dvh w-full items-center justify-center">
+      <MusicPlayer />
     </main>
-  );
+  )
 }

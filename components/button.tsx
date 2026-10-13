@@ -1,7 +1,7 @@
 type ButtonProps = {
-  text: string;
-};
+  text: string
+}
 
 export default function Button({ text }: ButtonProps) {
-  return <button>{text}</button>;
+  return <button>{text}</button>
 }
