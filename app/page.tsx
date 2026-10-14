@@ -1,4 +1,3 @@
-import Button from '@/components/button'
 import { MusicPlayer } from '@/components/music-player'
 
 export default function Home() {
