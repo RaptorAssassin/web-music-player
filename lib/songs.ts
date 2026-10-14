@@ -1,4 +1,4 @@
-type Song = {
+export type Song = {
   name: string
   artist: string
   tags: string[]
