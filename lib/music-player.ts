@@ -1,9 +1,11 @@
-import { useRef } from 'react'
+import { RefObject } from 'react'
 
-export function playMusic(audioPlayer: useRef<HTMLAudioElement>) {}
+export function playMusic(audioPlayer: RefObject<HTMLAudioElement | null>) {}
 
-export function pauseMusic(audioPlayer: useRef<HTMLAudioElement>) {}
+export function pauseMusic(audioPlayer: RefObject<HTMLAudioElement | null>) {}
 
-export function skipTrack(audioPlayer: useRef<HTMLAudioElement>) {}
+export function skipTrack(audioPlayer: RefObject<HTMLAudioElement | null>) {}
 
-export function previousTrack(audioPlayer: useRef<HTMLAudioElement>) {}
+export function previousTrack(
+  audioPlayer: RefObject<HTMLAudioElement | null>
+) {}

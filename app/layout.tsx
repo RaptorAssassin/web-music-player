@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Outfit } from 'next/font/google'
 import './globals.css'
+import { cn } from '@/lib/utils'
+
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-sans' })
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -22,7 +25,15 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={cn(
+        'h-full',
+        'antialiased',
+        'dark', // Force dark mode
+        geistSans.variable,
+        geistMono.variable,
+        'font-sans',
+        outfit.variable
+      )}
     >
       <body className="flex min-h-full flex-col" suppressHydrationWarning>
         {children}

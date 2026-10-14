@@ -47,7 +47,7 @@ function ControlButton({ children, className, onClick }: ControlButtonProps) {
       initial={{ scale: 1 }}
       whileHover={{ scale: 1.025 }}
       whileTap={{ scale: 0.95 }}
-      className="focus-visible:rounded-lg focus-visible:border focus-visible:border-green-600 focus-visible:outline-none"
+      className=""
       onClick={onClick}
     >
       {children}
