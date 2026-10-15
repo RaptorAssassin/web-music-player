@@ -14,10 +14,25 @@ export function MusicControls() {
   const rafId = useRef<number>(0)
   const audioEl = useRef<HTMLAudioElement | null>(null)
 
-  const setCurrentSong = useAppStore((state) => state.setCurrentSong)
   const audioPlayer = useAppStore((state) => state.audioPlayer)
-  const queue = useAppStore((state) => state.queue)
-  const setQueue = useAppStore((state) => state.setQueue)
+  const nextTrack = useAppStore((state) => state.nextTrack)
+  const previousTrack = useAppStore((state) => state.previousTrack)
+
+  const skipWithAutoplay = (skip: () => void) => {
+    const audio = audioEl.current
+    if (!audio) return
+    const wasPlaying = !audio.paused && !audio.ended
+    skip()
+    if (wasPlaying) {
+      audio.addEventListener(
+        'canplay',
+        () => {
+          audio.play().catch(() => setIsPlaying(false))
+        },
+        { once: true }
+      )
+    }
+  }
 
   useEffect(() => {
     const audio = audioPlayer?.current
@@ -36,8 +51,7 @@ export function MusicControls() {
     const handleEnded = () => {
       setIsPlaying(false)
       setCurrentPosition(0)
-      setCurrentSong(queue.slice(0, 1)[0])
-      setQueue(queue.slice(1))
+      nextTrack()
       addSongToQueue()
     }
     const tick = () => {
@@ -66,7 +80,7 @@ export function MusicControls() {
       audio.removeEventListener('pause', syncPlaying)
       audio.removeEventListener('ended', handleEnded)
     }
-  }, [audioPlayer])
+  }, [audioPlayer, nextTrack])
 
   return (
     <div className="mt-4 flex flex-col gap-4">
@@ -83,18 +97,18 @@ export function MusicControls() {
         onValueCommitted={(v) => {
           const next = typeof v === 'number' ? v : (v[0] ?? 0)
           isScrubbing.current = false
-          const audio = audioPlayer?.current
+          const audio = audioEl.current
           if (audio && Number.isFinite(next)) audio.currentTime = next
           setCurrentPosition(next)
         }}
       />
       <div className="flex shrink-0 gap-2">
-        <ControlButton>
+        <ControlButton onClick={() => skipWithAutoplay(previousTrack)}>
           <RewindIcon size={35} />
         </ControlButton>
         <ControlButton
           onClick={() => {
-            const audio = audioPlayer?.current
+            const audio = audioEl.current
             if (!audio) return
             if (audio.paused || audio.ended) {
               if (audio.ended) audio.currentTime = 0
@@ -106,7 +120,14 @@ export function MusicControls() {
         >
           {isPlaying ? <PauseIcon size={40} /> : <PlayIcon size={40} />}
         </ControlButton>
-        <ControlButton>
+        <ControlButton
+          onClick={() =>
+            skipWithAutoplay(() => {
+              nextTrack()
+              addSongToQueue()
+            })
+          }
+        >
           <FastForwardIcon size={35} />
         </ControlButton>
       </div>
