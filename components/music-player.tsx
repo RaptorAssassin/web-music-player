@@ -18,7 +18,7 @@ export function MusicPlayer() {
 
   useEffect(() => {
     setAudioPlayer(audioPlayer)
-  }, [])
+  }, [audioPlayer, setAudioPlayer])
 
   return (
     <>
@@ -30,7 +30,7 @@ export function MusicPlayer() {
               <SongInfo />
             </div>
             <div className="flex shrink-0 justify-center">
-              <MusicControls />
+              <MusicControls key={currentSong?.cdnUrl} />
             </div>
           </div>
           <div className="bg-border w-px shrink-0 self-stretch"></div>
