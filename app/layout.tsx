@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Outfit } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/utils'
+import { TooltipProvider } from '@/components/ui/tooltip'
 
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -36,7 +37,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       )}
     >
       <body className="flex min-h-full flex-col" suppressHydrationWarning>
-        {children}
+        <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
   )
