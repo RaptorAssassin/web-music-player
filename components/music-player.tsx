@@ -105,9 +105,7 @@ export function MusicPlayer() {
           <div
             className={cn(
               'flex h-full min-h-0 shrink-0 items-stretch overflow-hidden transition-all duration-300 ease-in-out',
-              isQueueVisible
-                ? 'ml-5 w-[181px] opacity-100'
-                : 'ml-0 w-0 opacity-0'
+              isQueueVisible ? 'ml-5 w-45.25 opacity-100' : 'ml-0 w-0 opacity-0'
             )}
           >
             <div className="bg-border w-px shrink-0" />
